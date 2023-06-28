@@ -2,15 +2,30 @@ import requests
 from datetime import datetime
 from config import NEWS_API_KEY
 
-def search(query: str, search_in: str, from_date: str, to_date: str, sort_by: str, language: str, page_size: int, page: int):
+def search(query: str,
+           search_in: str = "title,description,content",
+           sort_items: str = "publishedAt",
+           language: str = "en",
+           page_size: int = 100,
+           page: int = 1,
+           start: str = None,
+           end: str = None):
+
     query = query
     search_in = search_in
-    from_date = from_date
-    to_date = to_date
-    sort_by = sort_by  #relevancy, popularity, publishedAt
+    sort_by = sort_items  #relevancy, popularity, publishedAt
     language = language
     page_size = page_size  #100 is maximum
     page = page
+
+    if start is not None:
+        from_date = start
+    else:
+        from_date = datetime.now().date().strftime("%Y-%m-%d")
+    if end is not None:
+        to_date = end
+    else:
+        to_date = datetime.now().date().strftime("%Y-%m-%d")
 
     url = ('https://newsapi.org/v2/everything?'
            f'q={query}&'
@@ -31,4 +46,5 @@ def search(query: str, search_in: str, from_date: str, to_date: str, sort_by: st
         print(item['title'])
         print(f"{item['url']}\n")
 
-search("conspiracy theory wagner", "title,description,content", "2023-06-25", "2023-06-26", "publishedAt", "en", 10, 1)
+search("conspiracy theory wagner", "title,description,content", "publishedAt", "en", 10, 1, "2023-06-25", "2023-06-26")
+search("conspiracy theory wagner", start="2023-06-25", end="2023-06-26")
