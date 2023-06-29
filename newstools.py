@@ -27,6 +27,7 @@ def search(query: str,
     else:
         to_date = datetime.now().date().strftime("%Y-%m-%d")
 
+    # Make the request to newsapi.org
     url = ('https://newsapi.org/v2/everything?'
            f'q={query}&'
            f'searchIn={search_in}&'
@@ -41,10 +42,18 @@ def search(query: str,
     response = requests.get(url)
     response_json = response.json()
 
+    # Make a list of news dictionaries from the response
+    all_news = []
     for item in response_json['articles']:
-        print(f"{item['source']['name']} {datetime.strptime(item['publishedAt'], '%Y-%m-%dT%H:%M:%SZ').date()}:")
-        print(item['title'])
-        print(f"{item['url']}\n")
+        publisher = item['source']['name']
+        published_at = datetime.strptime(item['publishedAt'], '%Y-%m-%dT%H:%M:%SZ').date()
+        title = item['title']
+        news_url = item['url']
+        news_image = item['urlToImage']
 
-search("conspiracy theory wagner", "title,description,content", "publishedAt", "en", 10, 1, "2023-06-25", "2023-06-26")
-search("conspiracy theory wagner", start="2023-06-25", end="2023-06-26")
+        news = {"publisher": publisher, "published_at": published_at, "title": title, "news_url": news_url, "news_image": news_image}
+        all_news.append(news)
+
+    # Return the list of news dictionaries
+    print(all_news)
+    return all_news
