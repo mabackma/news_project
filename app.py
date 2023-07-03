@@ -23,6 +23,7 @@ def get_query():
     results = search(query, search_in, sort_items, language, page_size, page, start, end)
 
     # Return the results as JSON response
+    print(results)
     return jsonify(results)
 
 if __name__ == '__main__':
