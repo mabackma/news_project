@@ -56,6 +56,6 @@ def search(query: str,
         news = {"publisher": publisher, "published_at": published_at, "title": title, "news_url": news_url, "news_image": news_image}
         all_news.append(news)
 
-    # Return the list of news dictionaries
+    # Return the list of news dictionaries.
     return (news_count, all_news)
 
