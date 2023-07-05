@@ -1,5 +1,5 @@
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 from config import NEWS_API_KEY
 
 def search(query: str,
@@ -42,8 +42,6 @@ def search(query: str,
     response = requests.get(url)
     response_json = response.json()
 
-    news_count = response_json["totalResults"]
-
     # Make a list of news dictionaries from the response
     all_news = []
     for item in response_json['articles']:
@@ -57,5 +55,5 @@ def search(query: str,
         all_news.append(news)
 
     # Return the list of news dictionaries.
-    return (news_count, all_news)
+    return all_news
 
