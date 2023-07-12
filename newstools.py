@@ -39,6 +39,21 @@ def search(query: str,
            f'page={page}&'
            f'apiKey={NEWS_API_KEY}')
 
+    return get_response(url)
+
+
+def top_headlines(country: str, category: str):
+
+    # Make the request to newsapi.org
+    url = ('https://newsapi.org/v2/top-headlines?'
+           f'country={country}&'
+           f'category={category}&'
+           f'apiKey={NEWS_API_KEY}')
+
+    return get_response(url)
+
+
+def get_response(url: str):
     response = requests.get(url)
     response_json = response.json()
 
@@ -58,4 +73,3 @@ def search(query: str,
 
     # Return the list of news dictionaries.
     return (news_count, all_news)
-

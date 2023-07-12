@@ -1,3 +1,3 @@
-from newstools import search
+from newstools import search, top_headlines
 
-print(search("h", "title,description,content", "publishedAt", "", 10, 10, 2023-6-6, 2023-7-5))
+print(top_headlines("de", "business"))
