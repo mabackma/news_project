@@ -43,5 +43,3 @@ def get_headlines():
     print(results)
     return jsonify(results)
 
-if __name__ == '__main__':
-    app.run()
