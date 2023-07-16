@@ -65,10 +65,11 @@ def get_response(url: str):
         publisher = item['source']['name']
         published_at = datetime.strptime(item['publishedAt'], '%Y-%m-%dT%H:%M:%SZ').date()
         title = item['title']
+        description = item['description']
         news_url = item['url']
         news_image = item['urlToImage']
 
-        news = {"publisher": publisher, "published_at": published_at, "title": title, "news_url": news_url, "news_image": news_image}
+        news = {"publisher": publisher, "published_at": published_at, "title": title, "description": description, "news_url": news_url, "news_image": news_image}
         all_news.append(news)
 
     # Return the list of news dictionaries.
